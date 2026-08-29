@@ -1,0 +1,82 @@
+$ docker compose -f docker-compose.dev.yml up -d
+[+] Running 2/2
+ Container todo-backend-mongo-1  Started
+ Container todo-backend-redis-1  Started
+
+$ docker exec -it todo-backend-mongo-1 bash
+
+root@595c7fe295d9:/# mongosh -u root -p example
+Current Mongosh Log ID: 6a9250701409576f3de6f5c3
+Connecting to:          mongodb://<credentials>@127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.9.2
+Using MongoDB:          8.2.12
+Using Mongosh:          2.9.2
+
+test> show dbs
+admin         100.00 KiB
+config         12.00 KiB
+local          72.00 KiB
+the_database   72.00 KiB
+
+test> use the_database
+switched to db the_database
+
+the_database> show collections
+todos
+
+the_database> db.todos.find({})
+[
+  {
+    _id: ObjectId('6a925048ec7e79caaab07058'),
+    text: 'Write code',
+    done: true
+  },
+  {
+    _id: ObjectId('6a925048ec7e79caaab07059'),
+    text: 'Learn about containers',
+    done: false
+  },
+  {
+    _id: ObjectId('6a92505fc3d61bc2af3e6b92'),
+    text: 'Updated text',
+    done: true,
+    __v: 0
+  }
+]
+
+the_database> db.todos.insertOne({ text: 'Increase the number of tools in my tool belt', done: false })
+{
+  acknowledged: true,
+  insertedId: ObjectId('6a9250911409576f3de6f5c4')
+}
+
+the_database> db.todos.find({})
+[
+  {
+    _id: ObjectId('6a925048ec7e79caaab07058'),
+    text: 'Write code',
+    done: true
+  },
+  {
+    _id: ObjectId('6a925048ec7e79caaab07059'),
+    text: 'Learn about containers',
+    done: false
+  },
+  {
+    _id: ObjectId('6a92505fc3d61bc2af3e6b92'),
+    text: 'Updated text',
+    done: true,
+    __v: 0
+  },
+  {
+    _id: ObjectId('6a9250911409576f3de6f5c4'),
+    text: 'Increase the number of tools in my tool belt',
+    done: false
+  }
+]
+
+the_database> exit
+
+The new todo is also visible in the Express app:
+
+$ curl http://localhost:3000/todos
+[{"_id":"6a925048ec7e79caaab07058","text":"Write code","done":true},{"_id":"6a925048ec7e79caaab07059","text":"Learn about containers","done":false},{"_id":"6a92505fc3d61bc2af3e6b92","text":"Updated text","done":true,"__v":0},{"_id":"6a9250911409576f3de6f5c4","text":"Increase the number of tools in my tool belt","done":false}]

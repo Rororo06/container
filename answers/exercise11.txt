@@ -1,0 +1,49 @@
+Exercise 12.11: Redis command line
+
+$ docker exec -it todo-backend-redis-1 sh
+# redis-cli
+127.0.0.1:6379> KEYS *
+1) "added_todos"
+127.0.0.1:6379> GET added_todos
+"1"
+
+Set the counter to 9001:
+
+127.0.0.1:6379> SET added_todos 9001
+OK
+
+The statistics endpoint reflects the new value:
+
+$ curl http://localhost:3000/statistics
+{"added_todos":9001}
+
+Creating a new todo increases the counter:
+
+$ curl -X POST http://localhost:3000/todos -H 'Content-Type: application/json' \
+    -d '{"text":"Redis CLI check"}'
+{"text":"Redis CLI check","done":false,"_id":"6a92514cc3d61bc2af3e6b99","__v":0}
+
+$ curl http://localhost:3000/statistics
+{"added_todos":9002}
+
+127.0.0.1:6379> GET added_todos
+"9002"
+
+Deleting the key resets the statistics:
+
+127.0.0.1:6379> DEL added_todos
+(integer) 1
+
+$ curl http://localhost:3000/statistics
+{"added_todos":0}
+
+Creating a todo recreates the key:
+
+$ curl -X POST http://localhost:3000/todos -H 'Content-Type: application/json' \
+    -d '{"text":"After deleting the key"}'
+
+$ curl http://localhost:3000/statistics
+{"added_todos":1}
+
+127.0.0.1:6379> GET added_todos
+"1"

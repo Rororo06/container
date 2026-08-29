@@ -1,0 +1,46 @@
+root@9b40f8f4180b:/# apt install -y curl && curl -sL https://deb.nodesource.com/setup_24.x | bash && apt install -y nodejs
+Installing:
+  curl
+
+Installing dependencies:
+  bash-completion   libhogweed6t64   libnettle8t64        libssh2-1t64
+  ca-certificates   libidn2-0        libnghttp2-14        libtasn1-6
+  ...
+
+Summary:
+  Upgrading: 0, Installing: 30, Removing: 0, Not Upgrading: 3
+  Download size: 6615 kB
+  Space needed: 20.1 MB / 98.4 GB available
+...
+Setting up gnupg (2.4.8-4ubuntu3) ...
+Processing triggers for libc-bin (2.43-2ubuntu2.3) ...
+
+Get:1 https://deb.nodesource.com/node_24.x nodistro InRelease [12.1 kB]
+Get:2 https://deb.nodesource.com/node_24.x nodistro/main amd64 Packages [8761 B]
+Hit:3 http://archive.ubuntu.com/ubuntu resolute InRelease
+Fetched 20.9 kB in 0s (63.7 kB/s)
+2026-08-29 03:14:34 - Repository configured successfully.
+2026-08-29 03:14:34 - To install Node.js, run: apt install nodejs -y
+
+Installing:
+  nodejs
+
+Installing dependencies:
+  libexpat1              media-types      python3.14
+  libpython3-stdlib      netbase          python3.14-minimal
+  ...
+
+Summary:
+  Upgrading: 0, Installing: 12, Removing: 0, Not Upgrading: 3
+  Download size: 46.3 MB
+  Space needed: 271 MB / 98.3 GB available
+
+Get:1 https://deb.nodesource.com/node_24.x nodistro/main amd64 nodejs amd64 24.20.0-1nodesource1 [39.1 MB]
+...
+Setting up nodejs (24.20.0-1nodesource1) ...
+Processing triggers for libc-bin (2.43-2ubuntu2.3) ...
+
+root@9b40f8f4180b:/# node -v
+v24.20.0
+root@9b40f8f4180b:/# node /usr/src/app/index.js
+Hello World

@@ -1,0 +1,31 @@
+$ docker start -i ubuntu-todo
+
+root@9b40f8f4180b:/# apt update && apt install -y nano
+Get:1 http://archive.ubuntu.com/ubuntu resolute InRelease [136 kB]
+...
+Fetched 25.7 MB in 2s (12.6 MB/s)
+3 packages can be upgraded. Run 'apt list --upgradable' to see them.
+Installing:
+  nano
+
+Summary:
+  Upgrading: 0, Installing: 1, Removing: 0, Not Upgrading: 3
+  Download size: 289 kB
+  Space needed: 893 kB / 98.4 GB available
+
+Get:1 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 nano amd64 8.7.1-1ubuntu0.1 [289 kB]
+Fetched 289 kB in 0s (633 kB/s)
+Selecting previously unselected package nano.
+(Reading database ... 7724 files and directories currently installed.)
+Preparing to unpack .../nano_8.7.1-1ubuntu0.1_amd64.deb ...
+Unpacking nano (8.7.1-1ubuntu0.1) ...
+Setting up nano (8.7.1-1ubuntu0.1) ...
+update-alternatives: using /bin/nano to provide /usr/bin/editor (editor) in auto mode
+update-alternatives: using /bin/nano to provide /usr/bin/pico (pico) in auto mode
+
+root@9b40f8f4180b:/# nano /usr/src/app/index.js
+
+(wrote the line console.log('Hello World') to the file, saved with ctrl+o and exited with ctrl+x)
+
+root@9b40f8f4180b:/# cat /usr/src/app/index.js
+console.log('Hello World')
