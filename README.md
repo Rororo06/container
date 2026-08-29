@@ -7,33 +7,50 @@ Exercises for the Containers part of Full Stack Open.
 - `answers/` — command line transcripts asked for in the exercises
 - `todo-app/todo-backend/` — Express backend with MongoDB and Redis
 - `todo-app/todo-frontend/` — React frontend
+- `todo-app/docker-compose.dev.yml`, `todo-app/nginx.dev.conf` — development environment
+- `todo-app/docker-compose.yml`, `todo-app/nginx.conf` — production environment
 - `todo-tests/` — Playwright end to end tests
 
-## Running the backend in development
+## Running the whole application
 
-Start MongoDB and Redis:
+Development, with hot reloading for both the frontend and the backend:
 
 ```bash
-cd todo-app/todo-backend
-docker compose -f docker-compose.dev.yml up -d
+cd todo-app
+docker compose -f docker-compose.dev.yml up
 ```
 
-Then start the application:
+Production:
 
 ```bash
-MONGO_URL=mongodb://the_username:the_password@localhost:3456/the_database \
-REDIS_URL=redis://localhost:6379 \
-npm run dev
-```
-
-The containerised backend alone can be started with:
-
-```bash
-cd todo-app/todo-backend
+cd todo-app
 docker compose up
 ```
 
-## Endpoints
+Both environments are available at http://localhost:8080 and only Nginx
+publishes a port to the host: the frontend, the backend, MongoDB and Redis are
+reachable only inside the Compose network.
+
+## Running the end to end tests
+
+Start the production environment and then:
+
+```bash
+cd todo-tests
+npm install
+npx playwright install --with-deps chromium
+npm run test:e2e
+```
+
+The same tests run in GitHub Actions on every push to `main`.
+
+## Containerising an existing application
+
+The development and production container environments for my own full stack
+application (the bloglist of parts 4, 5 and 7) live in the repository of that
+application: https://github.com/Rororo06/openfullstack/tree/main/my-app
+
+## Backend endpoints
 
 - `GET /todos`, `POST /todos`
 - `GET /todos/:id`, `PUT /todos/:id`, `DELETE /todos/:id`
