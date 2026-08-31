@@ -4,12 +4,12 @@ Exercises for the Containers part of Full Stack Open.
 
 ## Structure
 
-- `answers/` — command line transcripts asked for in the exercises
-- `todo-app/todo-backend/` — Express backend with MongoDB and Redis
-- `todo-app/todo-frontend/` — React frontend
-- `todo-app/docker-compose.dev.yml`, `todo-app/nginx.dev.conf` — development environment
-- `todo-app/docker-compose.yml`, `todo-app/nginx.conf` — production environment
-- `todo-tests/` — Playwright end to end tests
+- `answers/` - command line transcripts asked for in the exercises
+- `todo-app/todo-backend/` - Express backend with MongoDB and Redis
+- `todo-app/todo-frontend/` - React frontend
+- `todo-app/docker-compose.dev.yml`, `todo-app/nginx.dev.conf` - development environment
+- `todo-app/docker-compose.yml`, `todo-app/nginx.conf` - production environment
+- `todo-tests/` - Playwright end to end tests
 
 ## Running the whole application
 
@@ -54,4 +54,4 @@ application: https://github.com/Rororo06/openfullstack/tree/main/my-app
 
 - `GET /todos`, `POST /todos`
 - `GET /todos/:id`, `PUT /todos/:id`, `DELETE /todos/:id`
-- `GET /statistics` — number of todos added, counted in Redis
+- `GET /statistics` - number of todos added, counted in Redis
